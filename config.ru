@@ -11,6 +11,12 @@ use Rack::Cors do
         :methods => [:get, :post, :put, :delete, :options],
         :headers => 'x-domain-token',
         :max_age => 600
+
+    resource '/categories/', :headers => 'x-domain-token'
+    resource '/categories/*',
+        :methods => [:get, :post, :put, :delete, :options],
+        :headers => 'x-domain-token',
+        :max_age => 600
   end
 
   allow do
