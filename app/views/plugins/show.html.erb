@@ -1,0 +1,24 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @plugin.name %>
+</p>
+
+<p>
+  <strong>Author:</strong>
+  <%= @plugin.author %>
+</p>
+
+<p>
+  <strong>Description:</strong>
+  <%= @plugin.description %>
+</p>
+
+<p>
+  <strong>Version:</strong>
+  <%= @plugin.version %>
+</p>
+
+<%= link_to 'Edit', edit_plugin_path(@plugin) %> |
+<%= link_to 'Back', plugins_path %>
