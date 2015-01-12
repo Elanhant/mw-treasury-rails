@@ -3,4 +3,6 @@ class Plugin < ActiveRecord::Base
 	
 	validates :name, length: { maximum: 140 }, presence: true
 	validates :version, length: { maximum: 10 }
+	validates :author, presence: true
+	validates :description, presence: true
 end

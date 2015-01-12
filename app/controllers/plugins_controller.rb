@@ -24,7 +24,8 @@ class PluginsController < ApplicationController
   # POST /plugins
   # POST /plugins.json
   def create
-    @plugin = Plugin.new(plugin_params)
+    @category = Category.find(params.require(:category).require(:id))
+    @plugin = @category.plugins.new(plugin_params)
 
     respond_to do |format|
       if @plugin.save
