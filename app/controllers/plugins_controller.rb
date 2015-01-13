@@ -42,7 +42,13 @@ class PluginsController < ApplicationController
   # PATCH/PUT /plugins/1.json
   def update
     respond_to do |format|
-      if @plugin.update(plugin_params)
+      if @plugin.update(params.require(:plugin).permit(:name, :version, :author, :category, :description))
+        if params.require(:new_images)
+          for image_obj in params.require(:new_images) do
+            @plugin.plugin_images.new(image_obj.permit(:url)).save
+          end
+          # @plugin.plugin_images.build(params.require(:new_images))
+        end
         format.html { redirect_to @plugin, notice: 'Plugin was successfully updated.' }
         format.json { render :show, status: :ok, location: @plugin }
       else

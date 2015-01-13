@@ -3,6 +3,12 @@ Rails.application.routes.draw do
 
   resources :plugins, defaults: { format: :json }
 
+  get 'plugin_images/upload', controller: 'plugin_images', to: :post_chunk!
+  post 'plugin_images/upload', controller: 'plugin_images', to: :post_chunk!
+  get 'plugin_images/status', controller: 'plugin_images', to: :options
+  match 'plugin_images/upload', :controller => 'plugin_images', :action => 'options', :constraints => {:method => 'OPTIONS'}, :via => [:options]
+
+
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
