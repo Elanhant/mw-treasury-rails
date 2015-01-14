@@ -42,8 +42,8 @@ class PluginsController < ApplicationController
   # PATCH/PUT /plugins/1.json
   def update
     respond_to do |format|
-      if @plugin.update(params.require(:plugin).permit(:name, :version, :author, :category, :description))
-        if params.require(:new_images)
+      if @plugin.update(params.require(:plugin).permit(:name, :version, :author, :category_id, :description))
+        if params[:new_images]
           for image_obj in params.require(:new_images) do
             @plugin.plugin_images.new(image_obj.permit(:url)).save
           end
