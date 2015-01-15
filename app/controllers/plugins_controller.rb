@@ -24,8 +24,7 @@ class PluginsController < ApplicationController
   # POST /plugins
   # POST /plugins.json
   def create
-    @category = Category.find(params.require(:category).require(:id))
-    @plugin = @category.plugins.new(plugin_params)
+    @plugin = Plugin.new(plugin_params)
 
     respond_to do |format|
       if @plugin.save
@@ -43,7 +42,7 @@ class PluginsController < ApplicationController
   def update
     respond_to do |format|
       if @plugin.update(params.require(:plugin).permit(:name, :version, :author, :category_id, :description))
-        if params[:new_images]
+        if params[:new_images].present?
           for image_obj in params.require(:new_images) do
             @plugin.plugin_images.new(image_obj.permit(:url)).save
           end
