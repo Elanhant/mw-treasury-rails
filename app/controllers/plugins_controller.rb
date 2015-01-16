@@ -4,7 +4,11 @@ class PluginsController < ApplicationController
   # GET /plugins
   # GET /plugins.json
   def index
-    @plugins = Plugin.all
+    if params[:name].present?
+      @plugins = Plugin.where('name like ?', "%#{params[:name]}%")
+    else
+      @plugins = Plugin.all
+    end
   end
 
   # GET /plugins/1
