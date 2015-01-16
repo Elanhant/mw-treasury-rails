@@ -1,6 +1,7 @@
 json.extract! @plugin, :id, :name, :author, :description, :version, :created_at, :updated_at, :plugin_images, :category
-json.images do
-	json.array! @plugin.plugin_images, :url
+json.images @plugin.plugin_images do |image|
+  json.extract! image, :url
+  json.set! :created_at, image.created_at.to_formatted_s(:short)
 end
 
 json.set! :created_at, @plugin.created_at.to_formatted_s(:long)
