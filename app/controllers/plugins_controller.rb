@@ -7,7 +7,7 @@ class PluginsController < ApplicationController
     if params[:name].present?
       @plugins = Plugin.where('name like ?', "%#{params[:name]}%")
     else
-      @plugins = Plugin.all
+      @plugins = Plugin.order('created_at').limit(5)
     end
   end
 
@@ -51,6 +51,12 @@ class PluginsController < ApplicationController
             @plugin.plugin_images.new(image_obj.permit(:url)).save
           end
           # @plugin.plugin_images.build(params.require(:new_images))
+        end
+        if params[:removed_images].present?
+          to_delete = PluginImage.where(id: params.require(:removed_images))
+          for image in to_delete do
+            image.destroy
+          end
         end
         format.html { redirect_to @plugin, notice: 'Plugin was successfully updated.' }
         format.json { render :show, status: :ok, location: @plugin }
