@@ -11,13 +11,14 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150112112930) do
+ActiveRecord::Schema.define(version: 20150121063451) do
 
   create_table "categories", force: true do |t|
     t.string   "name"
     t.string   "image_url"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "plugins_count", default: 0
   end
 
   create_table "plugin_images", force: true do |t|
