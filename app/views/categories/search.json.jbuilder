@@ -1,0 +1,1 @@
+json.array! @plugins, partial: 'categories/plugin', as: :plugin

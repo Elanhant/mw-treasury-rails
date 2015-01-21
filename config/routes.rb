@@ -3,6 +3,8 @@ Rails.application.routes.draw do
 
   resources :plugins, defaults: { format: :json }
 
+  get 'categories/:id/search', controller: 'categories', to: :search_plugins
+
   get 'plugin_images/upload', controller: 'plugin_images', to: :post_chunk!
   post 'plugin_images/upload', controller: 'plugin_images', to: :post_chunk!
   get 'plugin_images/status', controller: 'plugin_images', to: :options

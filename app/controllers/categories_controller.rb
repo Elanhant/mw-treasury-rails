@@ -1,5 +1,5 @@
 class CategoriesController < ApplicationController
-  before_action :set_category, only: [:show, :edit, :update, :destroy]
+  before_action :set_category, only: [:show, :edit, :update, :destroy, :search_plugins]
 
   # GET /categories
   # GET /categories.json
@@ -58,6 +58,17 @@ class CategoriesController < ApplicationController
     respond_to do |format|
       format.html { redirect_to categories_url, notice: 'Category was successfully destroyed.' }
       format.json { head :no_content }
+    end
+  end
+
+  # GET /categories/1/search
+  def search_plugins
+    @plugins = @category.plugins.includes(:plugin_images)
+    if params[:name].present?
+      @plugins = @plugins.where('name like ?', "%#{params[:name]}%")
+    end
+    respond_to do |format|
+      format.json { render 'search', status: :ok }
     end
   end
 
