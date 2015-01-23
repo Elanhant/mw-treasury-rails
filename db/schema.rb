@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150122075011) do
+ActiveRecord::Schema.define(version: 20150123063752) do
 
   create_table "categories", force: true do |t|
     t.string   "name"
@@ -20,6 +20,17 @@ ActiveRecord::Schema.define(version: 20150122075011) do
     t.datetime "updated_at"
     t.integer  "plugins_count", default: 0
   end
+
+  create_table "plugin_files", force: true do |t|
+    t.string   "name"
+    t.integer  "plugin_id"
+    t.integer  "size"
+    t.string   "path"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "plugin_files", ["plugin_id"], name: "index_plugin_files_on_plugin_id"
 
   create_table "plugin_images", force: true do |t|
     t.string   "url"
