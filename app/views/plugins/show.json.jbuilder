@@ -10,5 +10,9 @@ json.files @plugin.plugin_files do |file|
   json.set! :created_at, file.created_at.to_formatted_s(:short)
 end
 
+json.files @plugin.plugin_links do |link|
+  json.extract! link, :name, :url
+end
+
 json.set! :created_at, @plugin.created_at.to_formatted_s(:long)
 json.set! :category_id, @plugin.category ? @plugin.category.id : 0
