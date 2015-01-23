@@ -5,10 +5,13 @@ Rails.application.routes.draw do
 
   get 'categories/:id/search', controller: 'categories', to: :search_plugins
 
-  get 'plugin_images/upload', controller: 'plugin_images', to: :post_chunk!
-  post 'plugin_images/upload', controller: 'plugin_images', to: :post_chunk!
-  get 'plugin_images/status', controller: 'plugin_images', to: :options
-  match 'plugin_images/upload', :controller => 'plugin_images', :action => 'options', :constraints => {:method => 'OPTIONS'}, :via => [:options]
+  ['plugin_images', 'plugin_files'].each do |ctrl|
+    get "#{ctrl}/upload", controller: "#{ctrl}", to: :post_chunk!
+    post "#{ctrl}/upload", controller: "#{ctrl}", to: :post_chunk!
+    get "#{ctrl}/status", controller: "#{ctrl}", to: :options
+    match "#{ctrl}/upload", :controller => "#{ctrl}", :action => 'options', :constraints => {:method => 'OPTIONS'}, :via => [:options]
+  end
+  get 'files/test', controller: 'files', to: :test
 
 
   # The priority is based upon order of creation: first created -> highest priority.
