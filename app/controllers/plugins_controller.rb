@@ -58,17 +58,17 @@ class PluginsController < ApplicationController
           end
           # @plugin.file_obj.build(params.require(:new_files))
         end
-        if params[:removed_images].present?
-          to_delete = PluginImage.where(id: params.require(:removed_images))
-          for image in to_delete do
-            image.destroy
+        if params[:new_links].present?
+          for link_obj in params.require(:new_links) do
+            @plugin.plugin_links.new(link_obj.permit(:name, :url)).save
           end
+          # @plugin.file_obj.build(params.require(:new_files))
+        end
+        if params[:removed_images].present?
+          @plugin.plugin_images.where(:id => params[:removed_images]).destroy_all
         end
         if params[:removed_files].present?
-          to_delete = PluginFile.where(id: params.require(:removed_files))
-          for file in to_delete do
-            file.destroy
-          end
+          @plugin.plugin_files.where(:id => params[:removed_files]).destroy_all
         end
         format.html { redirect_to @plugin, notice: 'Plugin was successfully updated.' }
         format.json { render :show, status: :ok, location: @plugin }

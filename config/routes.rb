@@ -11,7 +11,6 @@ Rails.application.routes.draw do
     get "#{ctrl}/status", controller: "#{ctrl}", to: :options
     match "#{ctrl}/upload", :controller => "#{ctrl}", :action => 'options', :constraints => {:method => 'OPTIONS'}, :via => [:options]
   end
-  get 'files/test', controller: 'files', to: :test
 
 
   # The priority is based upon order of creation: first created -> highest priority.
